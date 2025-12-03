@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>To‑Do List</title>
+  <style>
+    :root[data-theme="light"],
+    :root:not([data-theme]) {
+      --bg: #eef2f7;
+      --fg: #0b1220;
+      --muted: #6b7280;
+      --card: #ffffff;
+      --accent: #4f46e5;
+      --stroke: #e5e7eb;
+      --overlay-start: rgba(0,0,0,.12);
+      --overlay-end: rgba(0,0,0,.2);
+    }
+
+    :root[data-theme="dark"] {
+      --bg: #0b0e14;
+      --fg: #e6e9ef;
+      --muted: #9aa4b2;
+      --card: #111827;
+      --accent: #6366f1;
+      --stroke: #1f2937;
+      --overlay-start: rgba(0,0,0,.25);
+      --overlay-end: rgba(0,0,0,.35);
+    }
+
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      background: var(--bg) url('https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1950&q=80') no-repeat center center fixed;
+      background-size: cover;
+      color: var(--fg);
+      font: 16px/1.5 system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      display: grid;
+      place-items: center;
+      position: relative;
+      isolation: isolate;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(to bottom right, var(--overlay-start), var(--overlay-end));
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .app {
+      width: min(540px, 69vw);
+      padding: 32px;
+      background: color-mix(in srgb, var(--card) 82%, transparent);
+      backdrop-filter: blur(6px);
+      position: relative;
+      z-index: 1;
+      border: 1px solid var(--stroke);
+      border-radius: 14px;
+      box-shadow: 0 8px 24px rgba(0,0,0,.12), 0 2px 8px rgba(0,0,0,.06);
+    }
+
+    h1 {
+      margin: 0 0 14px;
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: .2px;
+    }
+
+    .muted { color: var(--muted); font-size: 13px; margin-top: -2px; }
+
+    .header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .toggle-btn {
+      display: grid;
+      place-items: center;
+      width: 36px;
+      height: 36px;
+      padding: 0;
+      border-radius: 999px;
+      border: 1px solid color-mix(in srgb, var(--stroke) 70%, transparent);
+      background: color-mix(in srgb, var(--card) 50%, transparent);
+      color: var(--fg);
+      cursor: pointer;
+      transition: transform .08s ease, filter .15s ease, background .15s ease, border-color .15s ease;
+      backdrop-filter: blur(4px);
+      box-shadow: 0 2px 8px rgba(0,0,0,.1);
+      font-size: 0;
+      line-height: 0;
+    }
+    .toggle-btn .icon { font-size: 18px; line-height: 1; fill: none; }
+    .toggle-btn svg {
+      fill: none;
+      background: transparent;
+    }
+    .toggle-btn:hover { filter: brightness(1.05); transform: translateY(-1px); }
+    .toggle-btn:active { transform: translateY(0); }
+    .toggle-btn:focus-visible { outline: none; box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 35%, transparent), 0 2px 8px rgba(0,0,0,.1); }
+
+    form { display: grid; grid-template-columns: 1fr auto; gap: 50px; margin: 20px 0 14px; }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 14px 16px;
+      border: 1px solid var(--stroke);
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.8);
+      color: var(--fg);
+      outline: none;
+      transition: border-color .15s ease, box-shadow .15s ease;
+      backdrop-filter: saturate(120%);
+      font-size: 1.2em;
+    }
+
+    input[type="text"]:focus { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 20%, transparent); }
+    input[type="text"]::placeholder {
+      color: color-mix(in srgb, var(--muted) 80%, white);
+      font-size: 1.2em;
+      font-weight: 400;
+    }
+    input[type="text"]:hover { background: rgba(255,255,255,0.9); }
+
+    button {
+      padding: 12px 16px;
+      border: 1px solid transparent;
+      border-radius: 12px;
+      background: linear-gradient(to top left, #00c6ff, #1abc9c);
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform .04s ease, filter .15s ease;
+      box-shadow: 0 4px 14px rgba(26, 188, 156, 0.5);
+      will-change: transform, filter;
+      font-size: 1.25em;
+    }
+
+    button:active { transform: translateY(1px); }
+    button:hover { filter: brightness(1.06); transform: translateY(-1px); box-shadow: 0 8px 20px rgba(79,70,229,.38); }
+    button:focus-visible { outline: none; box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 35%, transparent), 0 8px 20px rgba(79,70,229,.38); }
+
+    ul { list-style: none; margin: 10px 0 0; padding: 0; }
+
+    li.item {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 14px;
+      border: 1px solid var(--stroke);
+      border-radius: 12px;
+      margin-top: 10px;
+      background: color-mix(in srgb, var(--card) 65%, transparent);
+      transition: background .15s ease, border-color .15s ease, transform .05s ease;
+    }
+    li.item:hover { background: color-mix(in srgb, var(--card) 78%, transparent); border-color: color-mix(in srgb, var(--stroke) 60%, var(--accent) 40%); }
+
+    li.item > label { display: grid; grid-template-columns: auto 1fr; gap: 10px; align-items: center; cursor: pointer; }
+
+    .toggle { width: 18px; height: 18px; }
+
+    .text { overflow-wrap: anywhere; }
+
+    .delete {
+      background: transparent;
+      color: var(--muted);
+      border: 1px solid var(--stroke);
+      padding: 6px 10px;
+      border-radius: 8px;
+      transition: background .15s ease, color .15s ease, border-color .15s ease;
+    }
+
+    .delete:hover { background: color-mix(in srgb, var(--accent) 8%, transparent); color: var(--fg); border-color: color-mix(in srgb, var(--accent) 25%, var(--stroke) 75%); }
+
+    .done .text { text-decoration: line-through; opacity: .6; }
+
+    @media (max-width: 480px) {
+      .app {
+        width: 94vw;
+        padding: 24px 18px;
+        border-radius: 12px;
+      }
+      body {
+        padding: 10px;
+      }
+      input[type="text"] {
+        padding: 12px 14px;
+        font-size: 15px;
+      }
+      button {
+        padding: 12px 14px;
+        font-size: 15px;
+      }
+      h1 {
+        font-size: 22px;
+      }
+    }
+    :root[data-theme="dark"] input[type="text"]::placeholder {
+      color: color-mix(in srgb, white 85%, var(--muted));
+    }
+    :root[data-theme="dark"] input[type="text"] {
+      background: rgba(30, 41, 59, 0.8);
+      color: #f1f5f9;
+    }
+  </style>
+</head>
+<body>
+  <main class="app" role="application">
+    <div class="header-row">
+      <h1>To‑Do</h1>
+      <button id="theme-toggle" class="toggle-btn" type="button" aria-pressed="false" aria-label="Toggle dark mode">
+        <span class="icon" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5" />
+            <line x1="12" y1="1" x2="12" y2="3" />
+            <line x1="12" y1="21" x2="12" y2="23" />
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+            <line x1="1" y1="12" x2="3" y2="12" />
+            <line x1="21" y1="12" x2="23" y2="12" />
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+          </svg>
+        </span>
+      </button>
+    </div>
+    <p class="muted">A tiny, clean to‑do list. Type a task and press Enter or use the button.</p>
+
+    <form id="todo-form" autocomplete="off">
+      <input id="task-input" name="task" type="text" placeholder="Add a new task…" aria-label="Task description" required />
+      <button id="add-btn" type="submit">Add</button>
+    </form>
+
+    <!-- Empty list container -->
+    <ul id="todo-list" aria-live="polite" aria-label="To‑do list"></ul>
+  </main>
+
+  <script>
+    const form  = document.getElementById('todo-form');
+    const input = document.getElementById('task-input');
+    const list  = document.getElementById('todo-list');
+
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeIcon = themeToggle.querySelector('.icon');
+
+    function applyTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      // Set background image based on theme
+      const body = document.body;
+      if (theme === 'dark') {
+        body.style.backgroundImage = "url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1950&q=80')"; // Night mountain image
+      } else {
+        body.style.backgroundImage = "url('https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1950&q=80')"; // Day mountain image
+      }
+      const isDark = theme === 'dark';
+      themeToggle.setAttribute('aria-pressed', String(isDark));
+      themeIcon.innerHTML = isDark
+        ? '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79Z"/></svg>'
+        : '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>';
+      localStorage.setItem('theme', theme);
+    }
+
+    function getPreferredTheme() {
+      const saved = localStorage.getItem('theme');
+      if (saved === 'light' || saved === 'dark') return saved;
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+
+    // Initialize
+    applyTheme(getPreferredTheme());
+
+    // Toggle handler
+    themeToggle.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme') || 'light';
+      applyTheme(current === 'dark' ? 'light' : 'dark');
+    });
+
+    // Keep in sync with system preference if user hasn't explicitly chosen
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+      const saved = localStorage.getItem('theme');
+      if (saved !== 'light' && saved !== 'dark') {
+        applyTheme(e.matches ? 'dark' : 'light');
+      }
+    });
+
+    function createItem(text) {
+      const li = document.createElement('li');
+      li.className = 'item';
+
+      const label = document.createElement('label');
+      const checkbox = document.createElement('input');
+      checkbox.type = 'checkbox';
+      checkbox.className = 'toggle';
+
+      const span = document.createElement('span');
+      span.className = 'text';
+      span.textContent = text;
+
+      const del = document.createElement('button');
+      del.type = 'button';
+      del.className = 'delete';
+      del.setAttribute('aria-label', `Delete "${text}"`);
+      del.textContent = '×';
+
+      label.append(checkbox, span);
+      li.append(label, del);
+
+      checkbox.addEventListener('change', () => {
+        li.classList.toggle('done', checkbox.checked);
+      });
+
+      del.addEventListener('click', () => li.remove());
+
+      return li;
+    }
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const value = input.value.trim();
+      if (!value) return;
+      list.appendChild(createItem(value));
+      input.value = '';
+      input.focus();
+    });
+  </script>
+</body>
+</html>

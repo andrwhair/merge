@@ -1,0 +1,316 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Verdana', Arial, sans-serif;
+    background-color: #DDDFDF;
+    color: #202121;
+    margin: 0;
+    padding: 0;
+}
+
+/* Side Sheet Container */
+.side-sheet {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 440px;
+    height: 100vh;
+    background-color: #FFFFFF;
+    border-left: 0.703px solid #9EA1A1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* Header */
+.side-sheet-header {
+    position: sticky;
+    top: 0;
+    background-color: #FFFFFF;
+    border-bottom: 1px solid #EBECEC;
+    padding: 10px 17px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 48px;
+    z-index: 10;
+}
+
+.side-sheet-title {
+    font-family: 'Noto Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 28px;
+    letter-spacing: 0.04px;
+    color: #202121;
+    margin: 0;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #202121;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+.close-btn:hover {
+    background-color: #F6F6F6;
+}
+
+.close-btn svg {
+    width: 24px;
+    height: 24px;
+}
+
+/* Content */
+.side-sheet-content {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 0;
+}
+
+/* Heading Section */
+.heading-section {
+    padding: 24px 24px 16px 24px;
+    position: relative;
+}
+
+.main-heading {
+    font-family: 'Noto Sans', sans-serif;
+    font-size: 21px;
+    font-weight: 600;
+    line-height: 1.2;
+    color: #202121;
+    margin: 0 0 16px 0;
+    padding-right: 60px;
+}
+
+.new-badge {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    background-color: #367419;
+    color: #FFFFFF;
+    font-family: 'SF Pro', sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: -0.23px;
+    padding: 4px 10px;
+    border-radius: 40px;
+}
+
+/* Person Card */
+.person-card {
+    margin: 0 24px 24px 24px;
+    background-color: #FFFFFF;
+    border-radius: 8px;
+    box-shadow: 0px 0px 12px 0px rgba(0, 0, 0, 0.15);
+}
+
+.person-card-content {
+    padding: 16px 20px;
+}
+
+/* Person Header */
+.person-header {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    padding: 9px 0;
+    margin-bottom: 17px;
+}
+
+.person-avatar {
+    flex-shrink: 0;
+}
+
+.person-avatar svg {
+    display: block;
+}
+
+.person-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.person-name {
+    font-family: 'Noto Sans', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 28px;
+    letter-spacing: 0.027px;
+    color: #202121;
+    margin: 0 0 2px 0;
+}
+
+.person-role {
+    font-family: 'Noto Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 14px;
+    letter-spacing: 0.048px;
+    color: rgba(0, 3, 7, 0.67);
+    margin: 0;
+}
+
+/* Person Details */
+.person-details {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 16px;
+}
+
+.detail-group {
+    display: flex;
+    flex-direction: column;
+    gap: 1.4px;
+}
+
+.detail-label {
+    font-family: 'Noto Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.4;
+    letter-spacing: 0.014px;
+    color: #202121;
+    margin: 0;
+    padding-top: 3.5px;
+}
+
+.detail-text {
+    font-family: 'Noto Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #202121;
+    margin: 0;
+}
+
+/* Divider */
+.divider {
+    height: 1px;
+    background-color: #EBECEC;
+    margin: 16px 0;
+}
+
+/* Record Section */
+.record-section {
+    margin-bottom: 16px;
+}
+
+.record-item {
+    display: flex;
+    gap: 13px;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.record-thumbnail {
+    width: 59px;
+    height: 56px;
+    flex-shrink: 0;
+    overflow: hidden;
+    border-radius: 4px;
+}
+
+.record-thumbnail img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.record-text {
+    font-family: 'Noto Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #202121;
+    margin: 0;
+    flex: 1;
+}
+
+/* Action Buttons */
+.action-buttons {
+    padding: 0 24px 24px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.btn {
+    width: 100%;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 4px;
+    font-family: 'Noto Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.btn-primary {
+    background-color: #202121;
+    color: #FFFFFF;
+}
+
+.btn-primary:hover {
+    background-color: #000000;
+}
+
+.btn-primary:active {
+    background-color: #000000;
+    transform: scale(0.98);
+}
+
+.btn-secondary {
+    background-color: transparent;
+    color: #202121;
+    border: 1px solid #9EA1A1;
+    text-transform: lowercase;
+}
+
+.btn-secondary:hover {
+    background-color: #F6F6F6;
+}
+
+.btn-secondary:active {
+    background-color: #EBECEC;
+    transform: scale(0.98);
+}
+
+/* Scrollbar Styling */
+.side-sheet-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.side-sheet-content::-webkit-scrollbar-track {
+    background: #F6F6F6;
+}
+
+.side-sheet-content::-webkit-scrollbar-thumb {
+    background: #9EA1A1;
+    border-radius: 4px;
+}
+
+.side-sheet-content::-webkit-scrollbar-thumb:hover {
+    background: #202121;
+}
