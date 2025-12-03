@@ -297,8 +297,8 @@ body {
     content: '';
     position: absolute;
     top: 100%;
-    left: 0;
-    right: 0;
+    left: -1px;
+    right: -1px;
     height: 100%;
     background-color: #F1F9FC;
     border-left: 1px solid #066F90;
@@ -308,8 +308,10 @@ body {
 
 .inconsistencies-cell.death-spacer {
     background-color: #F1F9FC;
-    border-left: 1px solid #066F90;
-    border-right: 1px solid #066F90;
+}
+
+.burial-header {
+    border-top: 1px solid #F0F0F0;
 }
 
 
