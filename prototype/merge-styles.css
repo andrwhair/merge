@@ -237,7 +237,7 @@ body {
 /* Inconsistencies Alert */
 .inconsistencies-row {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 2fr 1fr;
     grid-column: 1 / -1;
 }
 
@@ -245,7 +245,7 @@ body {
     padding: 0;
 }
 
-.inconsistencies-cell:nth-child(2) {
+.inconsistencies-cell:first-child {
     padding: 16px;
 }
 
