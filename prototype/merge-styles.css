@@ -247,6 +247,8 @@ body {
 
 .inconsistencies-cell:first-child {
     padding: 16px;
+    background-color: white;
+    border-right: 1px solid #EBECEC;
 }
 
 .inconsistencies-alert {
