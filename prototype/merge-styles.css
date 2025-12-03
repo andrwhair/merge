@@ -237,7 +237,7 @@ body {
 /* Inconsistencies Alert */
 .inconsistencies-row {
     display: grid;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     grid-column: 1 / -1;
 }
 
@@ -245,7 +245,13 @@ body {
     padding: 0;
 }
 
-.inconsistencies-cell:first-child {
+.inconsistencies-cell.col1-bg {
+    padding: 16px;
+    background-color: #F9F9F9;
+    border-right: 1px solid #EBECEC;
+}
+
+.inconsistencies-cell.col2-bg {
     padding: 16px;
     background-color: white;
     border-right: 1px solid #EBECEC;
