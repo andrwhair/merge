@@ -86,12 +86,16 @@
                 <h1 class="merge-title">Merge by ID</h1>
             </div>
 
-            <div class="merge-intro">
-                <div style="display: flex; align-items: flex-start; gap: 8px;">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="#4CAF50" style="flex-shrink: 0;">
-                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+            <div class="merge-intro merge-warning">
+                <div style="display: flex; align-items: flex-start; gap: 12px;">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" style="flex-shrink: 0;">
+                        <path d="M12 2L1 21h22L12 2zm0 6l6 11H6l6-11z" fill="#D32F2F"/>
+                        <path d="M11 10h2v5h-2v-5zm0 6h2v2h-2v-2z" fill="white"/>
                     </svg>
-                    <p style="margin: 0; font-family: 'Noto Sans', sans-serif; font-size: 16px; color: #202121;">These 2 people have no obvious conflicts.</p>
+                    <div>
+                        <p style="margin: 0 0 4px 0; font-family: 'Noto Sans', sans-serif; font-size: 16px; font-weight: 600; color: #202121;">Merge Not Recommended</p>
+                        <p style="margin: 0; font-family: 'Noto Sans', sans-serif; font-size: 14px; color: #202121;">These 2 people have inconsistencies. Merging is not recommended.</p>
+                    </div>
                 </div>
             </div>
             
@@ -235,6 +239,27 @@
                     <div class="data-cell surviving-cell">
                         <span class="data-value">4 November 1955<br>Jenkins, Letcher, Kentucky, United States</span>
                     </div>
+                </div>
+
+                <!-- Inconsistencies Alert -->
+                <div class="inconsistencies-row">
+                    <div class="inconsistencies-cell"></div>
+                    <div class="inconsistencies-cell">
+                        <div class="inconsistencies-alert">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" style="flex-shrink: 0;">
+                                <path d="M10 2L1 18h18L10 2zm0 5l5 9H5l5-9z" fill="#D32F2F"/>
+                                <path d="M9 9h2v4H9V9zm0 5h2v2H9v-2z" fill="white"/>
+                            </svg>
+                            <div class="inconsistencies-content">
+                                <strong>Inconsistencies</strong>
+                                <ul>
+                                    <li>The death dates are at least 47 years apart</li>
+                                    <li>The death places are 4,710 miles (7,581 kilometers) away</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="inconsistencies-cell"></div>
                 </div>
 
                 <!-- Burial Section -->
