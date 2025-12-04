@@ -239,6 +239,8 @@ body {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-column: 1 / -1;
+    position: relative;
+    min-height: 120px;
 }
 
 .inconsistencies-cell {
@@ -246,25 +248,38 @@ body {
 }
 
 .inconsistencies-cell.col1-bg {
-    padding: 16px;
     background-color: #F9F9F9;
     border-right: 1px solid #EBECEC;
 }
 
 .inconsistencies-cell.col2-bg {
-    padding: 16px;
     background-color: white;
     border-right: 1px solid #EBECEC;
 }
 
+.inconsistencies-alert-wrapper {
+    position: absolute;
+    left: 0;
+    right: 33.333%;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    padding: 16px;
+    pointer-events: none;
+    z-index: 1;
+}
+
 .inconsistencies-alert {
-    background-color: #FFEBEE;
-    border: 1px solid #EF9A9A;
+    background-color: #FFF9E6;
+    border: 1px solid #FFD54F;
     border-radius: 4px;
     padding: 12px;
     display: flex;
     gap: 12px;
     align-items: flex-start;
+    pointer-events: auto;
+    width: 100%;
 }
 
 .inconsistencies-content {

@@ -229,8 +229,8 @@
 
                 <div class="data-row death-with-alert">
                     <div class="data-cell">
-                        <input type="checkbox" name="death" class="data-checkbox" checked>
-                        <span class="data-value">1955<br>Kentucky, United States</span>
+                        <input type="checkbox" name="death" class="data-checkbox">
+                        <span class="data-value">1954<br>Kentucky, United States</span>
                     </div>
                     <div class="data-cell">
                         <input type="checkbox" name="death-2" class="data-checkbox">
@@ -243,23 +243,23 @@
 
                 <!-- Inconsistencies Alert -->
                 <div class="inconsistencies-row">
-                    <div class="inconsistencies-cell col1-bg">
+                    <div class="inconsistencies-cell col1-bg"></div>
+                    <div class="inconsistencies-cell col2-bg"></div>
+                    <div class="inconsistencies-cell death-spacer"></div>
+                    <div class="inconsistencies-alert-wrapper">
                         <div class="inconsistencies-alert">
                             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" style="flex-shrink: 0;">
-                                <path d="M10 2L1 18h18L10 2zm0 5l5 9H5l5-9z" fill="#D32F2F"/>
+                                <path d="M10 2L1 18h18L10 2zm0 5l5 9H5l5-9z" fill="#F57C00"/>
                                 <path d="M9 9h2v4H9V9zm0 5h2v2H9v-2z" fill="white"/>
                             </svg>
                             <div class="inconsistencies-content">
                                 <strong>Inconsistencies</strong>
                                 <ul>
-                                    <li>The death dates are at least 47 years apart</li>
-                                    <li>The death places are 4,710 miles (7,581 kilometers) away</li>
+                                    <li>The death dates are one year apart</li>
                                 </ul>
                             </div>
                         </div>
                     </div>
-                    <div class="inconsistencies-cell col2-bg"></div>
-                    <div class="inconsistencies-cell death-spacer"></div>
                 </div>
 
                 <!-- Burial Section -->
@@ -971,6 +971,45 @@
                 survivingCell.innerHTML = selectedValues[0]; // Just show the first checked value
             }
         }
+
+        // Checkbox behavior: ensure only one is selected at a time and prevent deselecting both
+        document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+            checkbox.addEventListener('click', function(e) {
+                // If this checkbox is already checked, prevent unchecking it
+                if (this.checked === false) {
+                    e.preventDefault();
+                    return;
+                }
+                
+                // Get the data field name (e.g., "given", "surname", etc.)
+                const fieldName = this.getAttribute('name');
+                const row = this.closest('.data-row');
+                
+                // Uncheck all other checkboxes in this row
+                const allCheckboxes = row.querySelectorAll('input[type="checkbox"]');
+                allCheckboxes.forEach(cb => {
+                    if (cb !== this) {
+                        cb.checked = false;
+                    }
+                });
+                
+                // Ensure this one is checked
+                this.checked = true;
+                
+                // Update the section based on field type
+                if (fieldName.includes('given')) {
+                    updateSection('given1', 'given2');
+                } else if (fieldName.includes('surname')) {
+                    updateSection('surname1', 'surname2');
+                } else if (fieldName.includes('birth')) {
+                    updateSection('birth1', 'birth2');
+                } else if (fieldName.includes('death')) {
+                    updateSection('death1', 'death2');
+                } else if (fieldName.includes('gender')) {
+                    updateSection('gender1', 'gender2');
+                }
+            });
+        });
 
         // Info icon tooltip functionality
         document.querySelectorAll('.info-icon').forEach(icon => {
