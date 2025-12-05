@@ -400,7 +400,7 @@ body {
 
 .column-title {
     font-family: 'Noto Sans', sans-serif;
-    font-size: 16px;
+    font-size: 20px;
     font-weight: 600;
     color: #202121;
     margin: 0;
@@ -544,11 +544,11 @@ body {
 .section-label {
     padding: 10px 20px 2px 20px;
     font-family: 'Noto Sans', sans-serif;
-    font-size: 12px;
+    font-size: 16px;
     font-weight: 600;
-    color: #666;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+    color: #202121;
+    text-transform: none;
+    letter-spacing: 0;
 }
 
 .section-label:nth-child(1) {
