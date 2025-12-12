@@ -262,6 +262,17 @@
             background: rgba(255, 192, 203, 0.08);
         }
 
+        .family-member.potential {
+            border: 2px dashed var(--gray20);
+            border-radius: 8px;
+            opacity: 0.7;
+        }
+
+        .family-member.potential:hover {
+            opacity: 1;
+            background: var(--gray02);
+        }
+
         .family-photo {
             width: 48px;
             height: 48px;
@@ -748,6 +759,17 @@
                                 <div class="family-name">Kay Anderson</div>
                                 <div class="family-relationship">Daughter</div>
                                 <div class="family-dates">1923–1982</div>
+                            </div>
+                        </div>
+
+                        <div class="family-member potential" data-family="children">
+                            <div class="family-photo">
+                                <img src="female.png" alt="Dorothy Anderson">
+                            </div>
+                            <div class="family-info">
+                                <div class="family-name">Dorothy Anderson</div>
+                                <div class="family-relationship">Potential Daughter</div>
+                                <div class="family-dates">1928–</div>
                             </div>
                         </div>
                     </div>
